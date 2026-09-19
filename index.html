@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Kuis Informatika</title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+</head>
+
+<body>
+
+  <!-- =====================================================
+       HALAMAN AWAL
+       ===================================================== -->
+
+  <section
+    id="startView"
+    class="view active"
+  >
+
+    <div class="container">
+
+      <div class="card">
+
+        <h1>
+          Kuis Informatika
+        </h1>
+
+        <p>
+          Materi Stack, Queue, dan Sorting
+        </p>
+
+        <div class="form-group">
+
+          <label for="studentName">
+            Nama Siswa
+          </label>
+
+          <input
+            type="text"
+            id="studentName"
+            placeholder="Masukkan nama lengkap"
+            autocomplete="name"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="studentClass">
+            Kelas
+          </label>
+
+          <input
+            type="text"
+            id="studentClass"
+            placeholder="Contoh: X-1"
+          >
+
+        </div>
+
+
+        <button
+          id="startQuizBtn"
+          class="primary-btn"
+          type="button"
+        >
+          Mulai Kuis
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       HALAMAN QUIZ
+       ===================================================== -->
+
+  <section
+    id="quizView"
+    class="view"
+  >
+
+    <div class="container">
+
+      <div class="quiz-header">
+
+        <div>
+
+          <h2>
+            Kuis Informatika
+          </h2>
+
+          <div id="pageNumber">
+            Halaman 1 dari 3
+          </div>
+
+        </div>
+
+
+        <div class="timer-box">
+
+          <span>
+            Waktu
+          </span>
+
+          <strong id="timer">
+            05:00
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="progress-box">
+
+        <span id="progressText">
+          0 / 30 soal dijawab
+        </span>
+
+      </div>
+
+
+      <div
+        id="questionsContainer"
+        class="questions-container"
+      ></div>
+
+
+      <div class="navigation">
+
+        <button
+          id="previousPageBtn"
+          class="secondary-btn"
+          type="button"
+        >
+          ← Sebelumnya
+        </button>
+
+
+        <button
+          id="nextPageBtn"
+          class="primary-btn"
+          type="button"
+        >
+          Berikutnya →
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       HALAMAN HASIL
+       ===================================================== -->
+
+  <section
+    id="resultView"
+    class="view"
+  >
+
+    <div class="container">
+
+      <div class="card result-card">
+
+        <h1>
+          Hasil Kuis
+        </h1>
+
+        <p>
+          Nama:
+          <strong id="resultName">
+            -
+          </strong>
+        </p>
+
+
+        <div class="score">
+
+          <span>
+            Nilai Anda
+          </span>
+
+          <strong id="resultScore">
+            0
+          </strong>
+
+        </div>
+
+
+        <div class="result-info">
+
+          <div>
+            <span>Jawaban Benar</span>
+
+            <strong id="resultCorrect">
+              0
+            </strong>
+          </div>
+
+
+          <div>
+            <span>Total Soal</span>
+
+            <strong id="resultTotal">
+              30
+            </strong>
+          </div>
+
+        </div>
+
+
+        <div class="result-buttons">
+
+          <button
+            id="printBtn"
+            class="primary-btn"
+            type="button"
+          >
+            Cetak / Simpan PDF
+          </button>
+
+
+          <button
+            id="restartBtn"
+            class="secondary-btn"
+            type="button"
+          >
+            Kerjakan Lagi
+          </button>
+
+
+          <button
+            id="recapBtn"
+            class="secondary-btn"
+            type="button"
+          >
+            Lihat Rekap Nilai
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       HALAMAN REKAP
+       ===================================================== -->
+
+  <section
+    id="recapView"
+    class="view"
+  >
+
+    <div class="container">
+
+      <div class="card">
+
+        <div class="recap-header">
+
+          <div>
+
+            <h1>
+              Rekap Nilai
+            </h1>
+
+            <p>
+              Rekap hasil pengerjaan siswa
+            </p>
+
+          </div>
+
+
+          <button
+            id="downloadCsvBtn"
+            class="primary-btn"
+            type="button"
+          >
+            Unduh Rekap CSV
+          </button>
+
+        </div>
+
+
+        <div
+          id="recapContainer"
+          class="recap-container"
+        >
+
+          <p>
+            Belum ada data.
+          </p>
+
+        </div>
+
+
+        <button
+          id="backToStartBtn"
+          class="secondary-btn"
+          type="button"
+        >
+          ← Kembali
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+       ===================================================== -->
+
+  <script src="script.js"></script>
+
+</body>
+</html>
