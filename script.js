@@ -174,8 +174,11 @@ function showView(viewId) {
 // ===============================
 
 function startQuiz() {
-  studentName = document.getElementById("studentName").value.trim();
-  studentClass = document.getElementById("studentClass").value.trim();
+  studentName =
+    document.getElementById("studentName").value.trim();
+
+  studentClass =
+    document.getElementById("studentClass").value.trim();
 
   if (!studentName) {
     alert("Silakan masukkan nama siswa.");
@@ -188,12 +191,16 @@ function startQuiz() {
   }
 
   currentPage = 0;
-  answers = new Array(questions.length).fill(null);
+
+  answers =
+    new Array(questions.length).fill(null);
+
   quizFinished = false;
 
   showView("quizView");
 
   renderPage();
+
   startTimer();
 }
 
@@ -203,24 +210,32 @@ function startQuiz() {
 // ===============================
 
 function renderPage() {
-  const container = document.getElementById("questionsContainer");
+  const container =
+    document.getElementById("questionsContainer");
 
   container.innerHTML = "";
 
-  const startIndex = currentPage * pageSize;
-  const endIndex = Math.min(
-    startIndex + pageSize,
-    questions.length
-  );
+  const startIndex =
+    currentPage * pageSize;
+
+  const endIndex =
+    Math.min(
+      startIndex + pageSize,
+      questions.length
+    );
 
   document.getElementById("pageNumber").textContent =
     `Halaman ${currentPage + 1} dari ${totalPages}`;
 
   for (let i = startIndex; i < endIndex; i++) {
+
     const q = questions[i];
 
-    const questionCard = document.createElement("div");
-    questionCard.className = "question-card";
+    const questionCard =
+      document.createElement("div");
+
+    questionCard.className =
+      "question-card";
 
     questionCard.innerHTML = `
       <div class="question-number">
@@ -232,9 +247,14 @@ function renderPage() {
       </div>
 
       <div class="answer-options">
+
         <button
           type="button"
-          class="answer-option ${answers[i] === true ? "selected" : ""}"
+          class="answer-option ${
+            answers[i] === true
+              ? "selected"
+              : ""
+          }"
           onclick="selectAnswer(${i}, true)"
         >
           Benar
@@ -242,11 +262,16 @@ function renderPage() {
 
         <button
           type="button"
-          class="answer-option ${answers[i] === false ? "selected" : ""}"
+          class="answer-option ${
+            answers[i] === false
+              ? "selected"
+              : ""
+          }"
           onclick="selectAnswer(${i}, false)"
         >
           Salah
         </button>
+
       </div>
     `;
 
@@ -262,12 +287,19 @@ function renderPage() {
     document.getElementById("nextPageBtn");
 
   previousButton.style.display =
-    currentPage === 0 ? "none" : "inline-block";
+    currentPage === 0
+      ? "none"
+      : "inline-block";
 
   if (currentPage === totalPages - 1) {
-    nextButton.textContent = "Selesai & Lihat Nilai";
+
+    nextButton.textContent =
+      "Selesai & Lihat Nilai";
+
   } else {
-    nextButton.textContent = "Berikutnya →";
+
+    nextButton.textContent =
+      "Berikutnya →";
   }
 }
 
@@ -277,6 +309,7 @@ function renderPage() {
 // ===============================
 
 function selectAnswer(index, value) {
+
   answers[index] = value;
 
   renderPage();
@@ -288,9 +321,11 @@ function selectAnswer(index, value) {
 // ===============================
 
 function updateProgress() {
-  const answered = answers.filter(
-    answer => answer !== null
-  ).length;
+
+  const answered =
+    answers.filter(
+      answer => answer !== null
+    ).length;
 
   document.getElementById("progressText").textContent =
     `${answered} / ${questions.length} soal dijawab`;
@@ -302,33 +337,44 @@ function updateProgress() {
 // ===============================
 
 function startTimer() {
+
   clearInterval(timerInterval);
 
-  remainingSeconds = pageSeconds;
+  remainingSeconds =
+    pageSeconds;
 
   updateTimerDisplay();
 
-  timerInterval = setInterval(() => {
-    remainingSeconds--;
+  timerInterval =
+    setInterval(() => {
 
-    updateTimerDisplay();
+      remainingSeconds--;
 
-    if (remainingSeconds <= 0) {
-      clearInterval(timerInterval);
+      updateTimerDisplay();
 
-      alert(
-        `Waktu halaman ${currentPage + 1} telah habis.`
-      );
+      if (remainingSeconds <= 0) {
 
-      goNextPage();
-    }
-  }, 1000);
+        clearInterval(timerInterval);
+
+        alert(
+          `Waktu halaman ${
+            currentPage + 1
+          } telah habis.`
+        );
+
+        goNextPage();
+      }
+
+    }, 1000);
 }
 
 
 function updateTimerDisplay() {
+
   const minutes =
-    Math.floor(remainingSeconds / 60);
+    Math.floor(
+      remainingSeconds / 60
+    );
 
   const seconds =
     remainingSeconds % 60;
@@ -343,10 +389,13 @@ function updateTimerDisplay() {
 // ===============================
 
 function goPreviousPage() {
+
   if (currentPage > 0) {
+
     currentPage--;
 
     renderPage();
+
     startTimer();
   }
 }
@@ -357,36 +406,55 @@ function goPreviousPage() {
 // ===============================
 
 function goNextPage() {
-  const startIndex = currentPage * pageSize;
-  const endIndex = Math.min(
-    startIndex + pageSize,
-    questions.length
-  );
+
+  const startIndex =
+    currentPage * pageSize;
+
+  const endIndex =
+    Math.min(
+      startIndex + pageSize,
+      questions.length
+    );
 
   const unanswered = [];
 
-  for (let i = startIndex; i < endIndex; i++) {
+  for (
+    let i = startIndex;
+    i < endIndex;
+    i++
+  ) {
+
     if (answers[i] === null) {
+
       unanswered.push(i + 1);
     }
   }
 
   if (unanswered.length > 0) {
-    const lanjut = confirm(
-      `Soal nomor ${unanswered.join(", ")} belum dijawab.\n\nTetap lanjut?`
-    );
+
+    const lanjut =
+      confirm(
+        `Soal nomor ${unanswered.join(", ")} belum dijawab.\n\nTetap lanjut?`
+      );
 
     if (!lanjut) {
       return;
     }
   }
 
-  if (currentPage < totalPages - 1) {
+  if (
+    currentPage <
+    totalPages - 1
+  ) {
+
     currentPage++;
 
     renderPage();
+
     startTimer();
+
   } else {
+
     finishQuiz();
   }
 }
@@ -397,7 +465,10 @@ function goNextPage() {
 // ===============================
 
 function finishQuiz() {
-  if (quizFinished) return;
+
+  if (quizFinished) {
+    return;
+  }
 
   quizFinished = true;
 
@@ -405,26 +476,46 @@ function finishQuiz() {
 
   let correctCount = 0;
 
-  for (let i = 0; i < questions.length; i++) {
-    if (answers[i] === questions[i].answer) {
+  for (
+    let i = 0;
+    i < questions.length;
+    i++
+  ) {
+
+    if (
+      answers[i] ===
+      questions[i].answer
+    ) {
+
       correctCount++;
     }
   }
 
-  const score = Math.round(
-    (correctCount / questions.length) * 100
-  );
+  const score =
+    Math.round(
+      (correctCount /
+        questions.length) *
+      100
+    );
 
-  document.getElementById("resultName").textContent =
+  document.getElementById(
+    "resultName"
+  ).textContent =
     studentName;
 
-  document.getElementById("resultScore").textContent =
+  document.getElementById(
+    "resultScore"
+  ).textContent =
     score;
 
-  document.getElementById("resultCorrect").textContent =
+  document.getElementById(
+    "resultCorrect"
+  ).textContent =
     correctCount;
 
-  document.getElementById("resultTotal").textContent =
+  document.getElementById(
+    "resultTotal"
+  ).textContent =
     questions.length;
 
   showView("resultView");
@@ -440,32 +531,62 @@ function finishQuiz() {
 // SIMPAN KE GOOGLE SHEETS
 // ===============================
 
-function saveResult(score, correctCount) {
+function saveResult(
+  score,
+  correctCount
+) {
+
   const data = {
-    student_name: studentName,
-    student_class: studentClass,
-    score: score,
-    correct_count: correctCount,
-    total_questions: questions.length,
-    submitted_at: new Date().toLocaleString("id-ID")
+
+    student_name:
+      studentName,
+
+    student_class:
+      studentClass,
+
+    score:
+      score,
+
+    correct_count:
+      correctCount,
+
+    total_questions:
+      questions.length,
+
+    submitted_at:
+      new Date().toLocaleString("id-ID")
   };
 
-  fetch(scriptURL, {
-    method: "POST",
-    mode: "no-cors",
-    headers: {
-      "Content-Type": "text/plain;charset=utf-8"
-    },
-    body: JSON.stringify(data)
-  })
+  fetch(
+    scriptURL,
+    {
+      method: "POST",
+
+      mode: "no-cors",
+
+      headers: {
+        "Content-Type":
+          "text/plain;charset=utf-8"
+      },
+
+      body:
+        JSON.stringify(data)
+    }
+  )
   .then(() => {
-    console.log("Data berhasil dikirim.");
+
+    console.log(
+      "Data berhasil dikirim."
+    );
+
   })
   .catch(error => {
+
     console.error(
       "Gagal mengirim data:",
       error
     );
+
   });
 }
 
@@ -475,13 +596,23 @@ function saveResult(score, correctCount) {
 // ===============================
 
 function restartQuiz() {
-  clearInterval(timerInterval);
 
-  answers = new Array(questions.length).fill(null);
+  clearInterval(
+    timerInterval
+  );
+
+  answers =
+    new Array(
+      questions.length
+    ).fill(null);
+
   currentPage = 0;
+
   quizFinished = false;
 
-  showView("startView");
+  showView(
+    "startView"
+  );
 }
 
 
@@ -490,6 +621,7 @@ function restartQuiz() {
 // ===============================
 
 function printResult() {
+
   window.print();
 }
 
@@ -499,65 +631,105 @@ function printResult() {
 // ===============================
 
 async function showRecap() {
-  showView("recapView");
+
+  showView(
+    "recapView"
+  );
 
   const container =
-    document.getElementById("recapContainer");
+    document.getElementById(
+      "recapContainer"
+    );
 
   container.innerHTML =
     "<p>Memuat data...</p>";
 
   try {
+
     const response =
       await fetch(scriptURL);
 
     const data =
       await response.json();
 
-    if (!data || data.length === 0) {
+    if (
+      !data ||
+      data.length === 0
+    ) {
+
       container.innerHTML =
         "<p>Belum ada data nilai.</p>";
+
       return;
     }
 
     let html = `
       <table class="recap-table">
+
         <thead>
+
           <tr>
             <th>No</th>
             <th>Nama</th>
             <th>Kelas</th>
             <th>Nilai</th>
-            <th>Benar</th>
-            <th>Total</th>
-            <th>Waktu</th>
           </tr>
+
         </thead>
+
         <tbody>
     `;
 
-    data.forEach((item, index) => {
-      html += `
-        <tr>
-          <td>${index + 1}</td>
-          <td>${item.student_name}</td>
-          <td>${item.student_class}</td>
-          <td>${item.score}</td>
-          <td>${item.correct_count}</td>
-          <td>${item.total_questions}</td>
-          <td>${item.submitted_at}</td>
-        </tr>
-      `;
-    });
+    data.forEach(
+      (item, index) => {
+
+        html += `
+          <tr>
+
+            <td>
+              ${
+                item.No ||
+                index + 1
+              }
+            </td>
+
+            <td>
+              ${
+                item.Nama ||
+                ""
+              }
+            </td>
+
+            <td>
+              ${
+                item.Kelas ||
+                ""
+              }
+            </td>
+
+            <td>
+              ${
+                item.Nilai ||
+                0
+              }
+            </td>
+
+          </tr>
+        `;
+      }
+    );
 
     html += `
         </tbody>
+
       </table>
     `;
 
-    container.innerHTML = html;
+    container.innerHTML =
+      html;
 
   } catch (error) {
+
     console.error(error);
 
     container.innerHTML =
@@ -571,42 +743,67 @@ async function showRecap() {
 // ===============================
 
 async function downloadCSV() {
+
   try {
+
     const response =
       await fetch(scriptURL);
 
     const data =
       await response.json();
 
-    if (!data || data.length === 0) {
-      alert("Belum ada data untuk diunduh.");
+    if (
+      !data ||
+      data.length === 0
+    ) {
+
+      alert(
+        "Belum ada data untuk diunduh."
+      );
+
       return;
     }
 
     let csv =
-      "Nama Siswa,Kelas,Nilai,Jawaban Benar,Total Soal,Waktu Pengumpulan\n";
+      "No,Nama,Kelas,Nilai\n";
 
-    data.forEach(item => {
-      csv += [
-        item.student_name,
-        item.student_class,
-        item.score,
-        item.correct_count,
-        item.total_questions,
-        item.submitted_at
-      ]
-      .map(value =>
-        `"${String(value).replace(/"/g, '""')}"`
-      )
-      .join(",");
+    data.forEach(
+      (item, index) => {
 
-      csv += "\n";
-    });
+        csv += [
+
+          item.No ||
+            index + 1,
+
+          item.Nama ||
+            "",
+
+          item.Kelas ||
+            "",
+
+          item.Nilai ||
+            0
+
+        ]
+        .map(
+          value =>
+            `"${String(value)
+              .replace(/"/g, '""')}"`
+        )
+        .join(",");
+
+        csv += "\n";
+      }
+    );
 
     const blob =
-      new Blob([csv], {
-        type: "text/csv;charset=utf-8;"
-      });
+      new Blob(
+        [csv],
+        {
+          type:
+            "text/csv;charset=utf-8;"
+        }
+      );
 
     const url =
       URL.createObjectURL(blob);
@@ -614,18 +811,28 @@ async function downloadCSV() {
     const link =
       document.createElement("a");
 
-    link.href = url;
-    link.download = "rekap-nilai-kuis.csv";
+    link.href =
+      url;
 
-    document.body.appendChild(link);
+    link.download =
+      "rekap-nilai-kuis.csv";
+
+    document.body.appendChild(
+      link
+    );
 
     link.click();
 
-    document.body.removeChild(link);
+    document.body.removeChild(
+      link
+    );
 
-    URL.revokeObjectURL(url);
+    URL.revokeObjectURL(
+      url
+    );
 
   } catch (error) {
+
     console.error(error);
 
     alert(
@@ -640,57 +847,74 @@ async function downloadCSV() {
 // ===============================
 
 document
-  .getElementById("startQuizBtn")
+  .getElementById(
+    "startQuizBtn"
+  )
   .addEventListener(
     "click",
     startQuiz
   );
 
 document
-  .getElementById("previousPageBtn")
+  .getElementById(
+    "previousPageBtn"
+  )
   .addEventListener(
     "click",
     goPreviousPage
   );
 
 document
-  .getElementById("nextPageBtn")
+  .getElementById(
+    "nextPageBtn"
+  )
   .addEventListener(
     "click",
     goNextPage
   );
 
 document
-  .getElementById("printBtn")
+  .getElementById(
+    "printBtn"
+  )
   .addEventListener(
     "click",
     printResult
   );
 
 document
-  .getElementById("restartBtn")
+  .getElementById(
+    "restartBtn"
+  )
   .addEventListener(
     "click",
     restartQuiz
   );
 
 document
-  .getElementById("recapBtn")
+  .getElementById(
+    "recapBtn"
+  )
   .addEventListener(
     "click",
     showRecap
   );
 
 document
-  .getElementById("downloadCsvBtn")
+  .getElementById(
+    "downloadCsvBtn"
+  )
   .addEventListener(
     "click",
     downloadCSV
   );
 
 document
-  .getElementById("backToStartBtn")
+  .getElementById(
+    "backToStartBtn"
+  )
   .addEventListener(
     "click",
-    () => showView("startView")
+    () =>
+      showView("startView")
   );
