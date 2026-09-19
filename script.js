@@ -3,7 +3,7 @@
 // ===============================
 
 const scriptURL =
-  "https://script.google.com/macros/s/AKfycbw0UjaRtm4KuW45rT00QWNDt_mLlPAWjnuvaTlhPkPRgJVq-xdd08gskbfYYGTfz5RzSw/exec";
+  "https://script.google.com/macros/s/AKfycbxOK80-h8wWgeUF15hFO_H6rMgHltyYuQENFydWp5bNbr1TToMnTmhEvkwNWTugxzQqrQ/exec";
 
 const pageSize = 10;
 const totalPages = 3;
